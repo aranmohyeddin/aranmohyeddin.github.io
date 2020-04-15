@@ -39,7 +39,11 @@
   "data": [
     {
       "name": "tree",
-      "url": "nodes.json",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRclhDVwkyNYfWMUPvAGwk-auJnwLhZ9UE0w-06V1g3gqZRLpu7fVB6JnUlx040ao_0BQy46D5sGEEx/pub?gid=402224702&single=true&output=tsv",
+      "format": {
+        "type": "tsv",
+        "parse": { "id": "number", "name": "string", "parent": "number" }
+      },
       "transform": [
         {
           "type": "stratify",
@@ -86,8 +90,11 @@
     },
     {
       "name": "links",
-      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRclhDVwkyNYfWMUPvAGwk-auJnwLhZ9UE0w-06V1g3gqZRLpu7fVB6JnUlx040ao_0BQy46D5sGEEx/pub?gid=1747145042&single=true&output=csv",
-      "format": { "type": "csv" },
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRclhDVwkyNYfWMUPvAGwk-auJnwLhZ9UE0w-06V1g3gqZRLpu7fVB6JnUlx040ao_0BQy46D5sGEEx/pub?gid=1747145042&single=true&output=tsv",
+      "format": {
+        "type": "tsv",
+        "parse": { "source": "number", "target": "number" }
+      },
       "transform": [
         {
           "type": "formula",

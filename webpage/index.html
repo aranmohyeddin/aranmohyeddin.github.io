@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: 0;
+      font-family: Abel, Helvetica, sans-serif;
+      color: #555;
+      overflow: hidden;
+      min-width: 1100px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 15px;
+      width: 80px;
+      background: #ddd;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: 0.2s;
+      transition: opacity 0.2s;
+    }
+    input[type="range"]:hover {
+      opacity: 1;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 5px;
+      background: #000;
+      cursor: pointer;
+      border: 0px;
+      border-radius: 0px;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 5px;
+      background: #000;
+      cursor: pointer;
+      border: 0px;
+      border-radius: 0px;
+    }
+
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0); /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+    .modal-content {
+      position: relative;
+      background-color: #fefefe;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #888;
+      width: 640px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s;
+    }
+    @-webkit-keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0;
+      }
+      to {
+        top: 0;
+        opacity: 1;
+      }
+    }
+    @keyframes animatetop {
+      from {
+        top: -300px;
+        opacity: 0;
+      }
+      to {
+        top: 0;
+        opacity: 1;
+      }
+    }
+    .close {
+      position: sticky;
+      background-color: gray;
+      color: white;
+      padding: 5px 10px 5px 10px;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 2px 16px;
+    }
+
+    .vega-bind {
+      display: flex;
+      justify-content: space-between;
+    }
+    .vega-bind input[type="range"] {
+      flex-grow: 1;
+    }
+
+    #vis {
+      position: absolute;
+      margin: 0 !important;
+      padding: 0 !important;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 590px;
+    }
+
+    .vega-bindings {
+      padding: 5px 10px;
+      position: absolute;
+      bottom: 0px;
+      width: 300px;
+      right: 0px;
+    }
+    .vega-bind {
+      padding: 5px 0;
+    }
+    .vega-embed summary {
+      background-color: black !important;
+      border-color: black !important;
+      color: white !important;
+    }
+    .vega-embed details {
+      translate: -15px -990px;
+    }
+
+    #tl {
+      padding: 10px;
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      left: 0;
+      display: grid;
+    }
+    #tl button {
+      padding: 5px 15px;
+    }
+
+    #bl {
+      padding: 10px;
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      left: 0;
+    }
+    #bl h1 {
+      margin: -10px 0;
+    }
+    #bl h3 {
+      margin-bottom: 0;
+    }
+
+    .r {
+      position: absolute;
+      padding: 10px;
+      z-index: 10;
+      top:0;
+      bottom: 0;
+      overflow: auto;
+    }
+
+    #rr{
+      right: 0;
+      width: 250px;
+    }
+
+    #rl{
+      right: 270px;
+      width: 300px;
+      background-color: black;
+    }
+
+    .txtbtn {
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-block;
+      background-color: inherit;
+    }
+    .txtbtn:hover {
+      background: #ccc;
+      color: white;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@5"></script>
+</head>
+
+<body>
+  <div id="tl">
+    <button class="txtbtn">What is this?</button>
+    <button class="txtbtn" onclick="contribute()">Contribute?</button>
+  </div>
+  <div id="bl">
+    <h1>Circular</h1>
+    <h1>Collection<span style="font-size: 14px;"> of</span></h1>
+    <h1>Cases</h1>
+    <h3>for urban studies</h3>
+  </div>
+
+  <div class="r" id="rl"> 
+    Debian is the largest upstream Linux distribution with a bigger community and features</br> stable, testing, and unstable branches, offering over 148 000 packages. The available</br> number of Arch binary packages is more modest. However, when including the AUR, the</br> quantities are comparable. Debian has a more vehement stance on free software but still</br> includes non-free software in its non-free repos. Arch is more lenient, and therefore</br> inclusive, concerning non-free packages as defined by GNU. Debian focuses on stringent</br> testing of the Stable branch, which is "frozen" and supported up to five years. Arch</br> packages are more current than Debian Stable, being more comparable to the Debian Testing</br> and Unstable branches, and has no fixed release schedule. Debian is available for many</br> architectures, including alpha, arm, hppa, i386, x86_64, ia64, m68k, mips, mipsel,</br> powerpc, s390, and sparc, whereas Arch is x86_64 only. Arch provides more expedient</br> support for building custom, installable packages from outside sources, with a ports-like</br> package build system. Debian does not offer a ports system, relying instead on its large</br> binary repositories. The Arch installation system only offers a minimal base,</br> transparently exposed during system configuration, whereas Debian's methods, such as the</br> use of apt tasks to install pre-selected groups of packages, offer a more automatically</br> configured approach as well as several alternative methods of installation. Arch generally</br> packages software libraries together with their header files, whereas in Debian header</br> files have to be downloaded separately. Arch keeps patching to a minimum, thus avoiding</br> problems that upstream are unable to review, whereas Debian patches its packages more</br> liberally for a wider audience.</br> </br> Fedora is community developed, yet corporately backed by Red Hat; it is often</br> presented as a testbed release system. Fedora packages and projects migrate to RHEL and</br> some eventually become adopted by other distributions. Arch has no fixed releases, and</br> does not serve as a testing branch for another distribution. Fedora packages use the RPM</br> format with the DNF package manager. Arch uses pacman to manage its packages. Fedora</br> refuses to include non-free software in official repositories due to its dedication to</br> free software, though third-party repositories are available for such packages. Arch is</br> more lenient in its disposition toward non-free software, leaving the discernment to the</br> user. Fedora offers many installation options including a graphical installer as well as</br> a minimal option. Fedora "spins" also provide alternative assortments of desktop</br> environments to choose from, each with a modest assortment of default packages. Arch, on</br> the other hand, only provides a few scripts meant to ease the process of a minimal base</br> system install. Fedora has a scheduled release cycle, but officially supports discrete</br> version upgrades with the FedUp tool. Arch is a rolling-release system. Arch features</br> a ports system, whereas Fedora does not. Both Arch and Fedora are targeted at experienced</br> users and developers. Both strongly encourage their users to contribute to project</br> development. Fedora has earned much community recognition for integration of SELinux, GCJ</br> compiled packages (to remove the need for Oracle's JRE), and prolific upstream</br> contribution; Red Hat and thus, Fedora developers by extension, contribute the highest</br> percentage of Linux kernel code as compared to any other project. Arch Linux provides what</br> is widely regarded as the most thorough and comprehensive distribution wiki. The Fedora</br> wiki is used in the original sense of the word "wiki", or a way to exchange information</br> between developers, testers and users rapidly. It is not meant to be an end-user knowledge</br> base like Arch's. Fedora's wiki resembles an issue tracker or a corporate wiki.</br> </br> Slackware uses BSD-style init scripts, whereas Arch uses systemd. Arch supplies a package</br> management system in pacman which, unlike Slackware's standard tools, offers automatic</br> dependency resolution and allows for more automated system upgrades. Slackware users</br> typically prefer their method of manual dependency resolution, citing the level of system</br> control it grants them, as well as Slackware's excellent supply of pre-installed libraries</br> and dependencies. Arch is a rolling-release system. Slackware is seen as more conservative</br> in its release cycle, preferring proven stable packages. Arch is more bleeding-edge in</br> this respect. Arch Linux provides many thousands of binary packages within its official</br> repositories, whereas Slackware official repositories are more modest. Arch offers the</br> Arch Build System, an actual ports-like system and also the AUR, a very large collection</br> of PKGBUILDs contributed by users. Slackware offers a similar, though slimmer system at</br> slackbuilds.org which is a semi-official repository of Slackbuilds, which are analogous to</br> Arch PKGBUILDs. Slackware users will generally be quite comfortable with most aspects of</br> Arch.</br>
+  </div>
+  <div class="r" id="rr"> 
+    1. MX Linux</br> 2. Manjaro Linux</br> 3. Linux Mint</br> 4. Debian</br> 5. Ubuntu</br> 6. elementary OS</br> 7. Solus</br> 8. Zorin OS</br> 9. Fedora</br> 10. deepin</br> 11. KDE neon</br> 12. antiX</br> 13. Pop!_OS</br> 14. ArcoLinux</br> 15. PCLinuxOS</br> 16. Arch Linux</br> 17. CentOS</br> 18. openSUSE</br> 19. Kali Linux</br> 20. Ubuntu Kylin</br> 21. Puppy Linux</br> 22. Peppermint OS</br> 23. EndeavourOS</br> 24. SparkyLinux</br> 25. EasyOS</br> 26. Linux Lite</br> 27. FreeBSD</br> 28. ReactOS</br> 29. Tails</br> 30. Lubuntu</br> 31. Archman GNU/Linux</br> 32. Android-x86</br> 33. Slackware Linux</br> 34. Q4OS</br> 35. Xubuntu</br> 36. Void</br> 37. Mageia</br> 38. Kubuntu</br> 39. Project Trident</br> 40. Parrot</br> 41. Alpine Linux</br> 42. Devuan GNU+Linux</br> 43. OpenMandriva Lx</br> 44. Ubuntu MATE</br> 45. Bluestar Linux</br> 46. Feren OS</br> 47. Gentoo Linux</br> 48. Endless OS</br> 49. PureOS</br> 50. GhostBSD</br> 51. Bodhi Linux</br> 52. SmartOS</br> 53. KNOPPIX</br> 54. KaOS</br> 55. Red Hat Enterprise Linux</br> 56. 4MLinux</br> 57. NomadBSD</br> 58. ClearOS</br> 59. ALT Linux</br> 60. ExTiX</br> 61. Clear Linux</br> 62. Qubes OS</br> 63. Voyager Live</br> 64. Tiny Core Linux</br> 65. Ultimate Edition</br> 66. LXLE</br> 67. Netrunner</br> 68. Elive</br> 69. AV Linux</br> 70. Nitrux</br> 71. BlackArch Linux</br> 72. Volumio</br> 73. Robolinux</br> 74. Ubuntu Budgie</br> 75. Emmabuntüs</br> 76. ArchBang Linux</br> 77. DragonFly BSD</br> 78. Obarun</br> 79. Septor</br> 80. Artix Linux</br> 81. LibreELEC</br> 82. OpenBSD</br> 83. NixOS</br> 84. Ubuntu Studio</br> 85. AUSTRUMI</br> 86. SteamOS</br> 87. AryaLinux</br> 88. Simplicity Linux</br> 89. Trisquel GNU/Linux</br> 90. Raspbian</br> 91. BunsenLabs Linux</br> 92. Sabayon</br> 93. ROSA</br> 94. Haiku</br> 95. Slax</br> 96. Oracle Linux</br> 97. ArchLabs Linux</br> 98. Lakka</br> 99. Linux Kodachi</br> 100. Clonezilla Live</br> 101. MakuluLinux</br> 102. FuryBSD</br> 103. NetBSD</br> 104. Absolute Linux</br> 105. Whonix</br> 106. BackBox Linux</br> 107. Rescatux</br> 108. Calculate Linux</br> 109. MidnightBSD</br> 110. Linuxfx</br> 111. NuTyX</br> 112. OpenMediaVault</br> 113. IPFire</br> 114. OpenIndiana</br> 115. LinuxConsole</br> 116. Porteus</br> 117. SuperGamer</br> 118. FreeNAS</br> 119. Exe GNU/Linux</br> 120. Pardus</br> 121. Parabola GNU/Linux-libre</br> 122. XigmaNAS</br> 123. GoboLinux</br> 124. SystemRescueCd</br> 125. SUSE Linux Enterprise</br> 126. EasyNAS</br> 127. SliTaz GNU/Linux</br> 128. Container Linux</br> 129. Hyperbola GNU/Linux-libre</br> 130. DuZeru</br> 131. UBports</br> 132. Dragora GNU/Linux-Libre</br> 133. Parted Magic</br> 134. Zenwalk Linux</br> 135. Raspberry Slideshow</br>
+  </div>
+
+  <div id="vis" />
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSecsGhiDEjnWmos6MeaghthWkoZuSinjpPrKT-YSqOmKUBiDQ/viewform?embedded=true"
+        width="640"
+        height="700"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        >Loading…</iframe
+      >
+    </div>
+  </div>
+
+  <script>
+    const spec = "edge-bundling.vg.json";
+    vegaEmbed("#vis", spec, {
+      padding: 0,
+      actions: {
+        export: true,
+        source: false,
+        compiled: true,
+        editor: false,
+      },
+      renderer: "svg",
+      downloadFileName: "TUIC-CCC",
+    }).catch(console.warn);
+  </script>
+  <script>
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    function contribute() {
+      modal.style.display = "block";
+    }
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
